@@ -1,46 +1,57 @@
 import { Component } from '@angular/core';
-import { ProductService } from './services/post.service';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { ProductService, Producto } from './services/post.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, HttpClientModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
 
-  // Coincide con el HTML
-  section: 'people' | 'planets' | 'starships' = 'people';
-  characterId: number | null = null;
+  producto: Producto = {
+    title: '',
+    price: 0,
+    description: '',
+    image: '',
+    category: ''
+  };
 
+  respuesta: Producto | null = null;
   loading = false;
   errorMessage = '';
+  successMessage = '';
 
-  person: any = null;
-  planet: any = null;
-  starship: any = null;
+  constructor(private productService: ProductService) {}
 
-  homeworldName = '';
-  placeholderText: string = 'Ej: 1 (Luke Skywalker)';
+  guardarProducto() {
+    this.errorMessage = '';
+    this.successMessage = '';
+    this.respuesta = null;
+    this.loading = true;
 
-  constructor(private product: ProductService) {}
+    this.productService.agregarProducto(this.producto).subscribe({
+      next: (data) => {
+        this.respuesta = data;
+        this.successMessage = 'Producto agregado correctamente';
+        this.loading = false;
 
-  clearInput() {
-  this.characterId = null;
-}
-  
-  updatePlaceholder() {
-  if (this.section === 'people') {
-    this.placeholderText = 'Ej: 1 (Luke Skywalker)';
+        this.producto = {
+          title: '',
+          price: 0,
+          description: '',
+          image: '',
+          category: ''
+        };
+      },
+      error: () => {
+        this.errorMessage = 'Ocurrió un error al guardar el producto';
+        this.loading = false;
+      }
+    });
   }
-  else if (this.section === 'planets') {
-    this.placeholderText = 'Ej: 3 (Yavin IV)';
-  }
-  else if (this.section === 'starships') {
-    this.placeholderText = 'Ej: 9 (Death Star)';
-  }
-}
 }
