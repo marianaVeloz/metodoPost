@@ -1,0 +1,67 @@
+<!-- <div class="container">
+  <h1>Registro de producto</h1>
+
+  <div class="form">
+    <label for="title">Título:</label>
+    <input
+      id="title"
+      type="text"
+      [(ngModel)]="producto.title"
+      placeholder="Ej: Camisa negra"
+    >
+
+    <label for="price">Precio:</label>
+    <input
+      id="price"
+      type="number"
+      [(ngModel)]="producto.price"
+      placeholder="Ej: 350"
+    >
+
+    <label for="description">Descripción:</label>
+    <textarea
+      id="description"
+      [(ngModel)]="producto.description"
+      placeholder="Describe el producto"
+    ></textarea>
+
+    <label for="image">Imagen URL:</label>
+    <input
+      id="image"
+      type="text"
+      [(ngModel)]="producto.image"
+      placeholder="https://..."
+    >
+
+    <label for="category">Categoría:</label>
+    <input
+      id="category"
+      type="text"
+      [(ngModel)]="producto.category"
+      placeholder="Ej: Maquillaje"
+    >
+
+    <button (click)="guardarProducto()" [disabled]="loading">
+      {{ loading ? 'Guardando...' : 'Guardar producto' }}
+    </button>
+  </div>
+
+  <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+  <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+
+  <div class="card" *ngIf="respuesta">
+    <div class="info">
+      <p><b>ID:</b> {{ respuesta.id }}</p>
+      <p><b>Título:</b> {{ respuesta.title }}</p>
+      <p><b>Precio:</b> {{ respuesta.price }}</p>
+      <p><b>Descripción:</b> {{ respuesta.description }}</p>
+      <p><b>Imagen:</b> {{ respuesta.image }}</p>
+      <p><b>Categoría:</b> {{ respuesta.category }}</p>
+    </div>
+  </div>
+
+  <p class="note">
+    Endpoint:
+    <span class="mono">POST https://fakestoreapi.com/products</span>
+  </p>
+</div> quitar-->
