@@ -1,67 +1,69 @@
-<div class="container">
-  <h1>Registro de producto</h1>
-
-  <div class="form">
-    <label for="title">Título:</label>
-    <input
-      id="title"
-      type="text"
-      [(ngModel)]="producto.title"
-      placeholder="Ej: Camisa negra"
-    >
-
-    <label for="price">Precio:</label>
-    <input
-      id="price"
-      type="number"
-      [(ngModel)]="producto.price"
-      placeholder="Ej: 350"
-    >
-
-    <label for="description">Descripción:</label>
-    <textarea
-      id="description"
-      [(ngModel)]="producto.description"
-      placeholder="Describe el producto"
-    ></textarea>
-
-    <label for="image">Imagen URL:</label>
-    <input
-      id="image"
-      type="text"
-      [(ngModel)]="producto.image"
-      placeholder="https://..."
-    >
-
-    <label for="category">Categoría:</label>
-    <input
-      id="category"
-      type="text"
-      [(ngModel)]="producto.category"
-      placeholder="Ej: Maquillaje"
-    >
-
-    <button (click)="guardarProducto()" [disabled]="loading">
-      {{ loading ? 'Guardando...' : 'Guardar producto' }}
-    </button>
-  </div>
-
-  <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
-  <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
-
-  <div class="card" *ngIf="respuesta">
-    <div class="info">
-      <p><b>ID:</b> {{ respuesta.id }}</p>
-      <p><b>Título:</b> {{ respuesta.title }}</p>
-      <p><b>Precio:</b> {{ respuesta.price }}</p>
-      <p><b>Descripción:</b> {{ respuesta.description }}</p>
-      <p><b>Imagen:</b> {{ respuesta.image }}</p>
-      <p><b>Categoría:</b> {{ respuesta.category }}</p>
+<div class="product-container">
+    <div class="form-header">
+        <h1>Registro de Producto</h1>
+        <p class="subtitle">Añade un nuevo artículo al inventario</p>
     </div>
-  </div>
 
-  <p class="note">
-    Endpoint:
-    <span class="mono">POST https://fakestoreapi.com/products</span>
-  </p>
-</div> quitar
+    <div class="product-form">
+        <div class="form-group">
+            <label for="title">Título del producto</label>
+            <input id="title" type="text" [(ngModel)]="producto.title" placeholder="Ej: Camisa negra de algodón">
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="price">Precio ($)</label>
+                <input id="price" type="number" [(ngModel)]="producto.price" placeholder="Ej: 350.00">
+            </div>
+            <div class="form-group">
+                <label for="category">Categoría</label>
+                <input id="category" type="text" [(ngModel)]="producto.category" placeholder="Ej: Ropa de hombre">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Descripción</label>
+            <textarea id="description" [(ngModel)]="producto.description" rows="3" placeholder="Describe las características principales del producto..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="image">URL de la Imagen</label>
+            <input id="image" type="text" [(ngModel)]="producto.image" placeholder="https://ejemplo.com/imagen.jpg">
+        </div>
+
+        <button class="btn-submit" (click)="guardarProducto()" [disabled]="loading">
+            <span class="btn-text" *ngIf="!loading">Guardar producto</span>
+            <span class="btn-text loading-text" *ngIf="loading">Guardando...</span>
+        </button>
+    </div>
+
+    <div class="alert alert-error" *ngIf="errorMessage">
+        <strong>Error:</strong> {{ errorMessage }}
+    </div>
+    <div class="alert alert-success" *ngIf="successMessage">
+        <strong>¡Éxito!</strong> {{ successMessage }}
+    </div>
+
+    <div class="result-card" *ngIf="respuesta">
+        <div class="result-header">
+            <h3>Producto registrado exitosamente</h3>
+            <span class="badge">ID: {{ respuesta.id }}</span>
+        </div>
+        <div class="result-content">
+            <div class="result-image" *ngIf="respuesta.image">
+                <img [src]="respuesta.image" alt="Vista previa del producto">
+            </div>
+            <div class="result-details">
+                <h4>{{ respuesta.title }}</h4>
+                <p class="price">${{ respuesta.price }}</p>
+                <p class="category">{{ respuesta.category }}</p>
+                <p class="description">{{ respuesta.description }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="endpoint-note">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+        <span>Endpoint: <code>POST https://fakestoreapi.com/products</code></span>
+    </div>
+</div>
